@@ -1,4 +1,5 @@
 # https://docs.tweepy.org/en/stable/getting_started.html
+# https://docs.tweepy.org/en/stable/api.html#get-tweet-timelines
 import config
 import tweepy
 
