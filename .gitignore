@@ -1,12 +1,4 @@
-*.pyc
-__pycache__/
-*.swp
-.vscode
-/build/
-./idea
-/dist/
-venv/
-
-/t.py
-
-/twitter_scraper.egg-info/
+node_modules
+credentials.py
+credentials.txt
+config.py
