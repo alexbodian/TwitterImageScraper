@@ -3,7 +3,7 @@ import config
 import tweepy
 
 auth = tweepy.OAuth1UserHandler(
-   config.consumer_key, config.consumer_secret, config.access_token, config.token_secret
+   config.api_key, config.api_secret, config.access_token, config.token_secret
 )
 
 api = tweepy.API(auth)
