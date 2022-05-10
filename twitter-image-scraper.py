@@ -3,13 +3,6 @@
 # https://stackoverflow.com/questions/30359801/how-to-successfully-get-all-the-tweets-for-one-user-with-tweepy
 # https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/
 # https://towardsdatascience.com/how-to-download-an-image-using-python-38a75cfa21c
-
-# import tweepy
-# auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-# auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-# api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
-# status = api.user_timeline(user=username, count=1)[0]
-# json.dumps(status)
 import json
 import config
 import tweepy
@@ -26,31 +19,85 @@ auth = tweepy.OAuth1UserHandler(
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 # status = api.user_timeline(user='USATODAY', count=1)[0]
 # json.dumps(status)
+# with open('data.json', 'w', encoding="utf-8")as f:
 list_of_tweets = []
 
-# with open('data.json', 'w', encoding="utf-8")as f:
-
 api = tweepy.API(auth)
-for tweet in tweepy.Cursor(api.user_timeline,id='AmpTokenBot').items():
-   # f.write(json.dumps(tweet._json))
+# enter name of twitter account for id
+for tweet in tweepy.Cursor(api.user_timeline,id='').items():
    list_of_tweets.append(json.dumps(tweet._json))
+   # f.write(json.dumps(tweet._json))
 
-
-
+count = 1
 for tweet in list_of_tweets:
 
    data = json.loads(tweet)
-   data = json.dumps((data['extended_entities'])['media'])
-   data = json.loads(data)
-   data = data[0]
+   try:
+      
+      data = json.dumps((data['extended_entities'])['media'])
+      data = json.loads(data)
+      data = data[0]      
+      image_url = data['media_url']
+      filename = image_url.split("/")[-1]
+      
+         # Open a local file with wb ( write binary ) permission.
+      r = requests.get(image_url, stream = True)
+      with open("./images/{}".format(filename),'wb') as f:
+         shutil.copyfileobj(r.raw, f)
+   
 
-   # print(data['media_url'])
-   image_url = data['media_url']
-   filename = image_url.split("/")[-1]
-   # Open a local file with wb ( write binary ) permission.
-   r = requests.get(image_url, stream = True)
-   with open("./images/{}".format(filename),'wb') as f:
-      shutil.copyfileobj(r.raw, f)
+   except:
+      pass
+         
+   try:
+      
+      data = data['quoted_status']['entities']['media']
+      data = (data)[0]
+
+
+      # data = json.loads(data)
+      image_url = data['media_url']
+      filename = image_url.split("/")[-1]
+      
+      
+         # Open a local file with wb ( write binary ) permission.
+      r = requests.get(image_url, stream = True)
+      with open("./images/{}".format(filename),'wb') as f:
+         shutil.copyfileobj(r.raw, f)
+   except:
+      pass
+
+   try:
+      
+      data = data['entities']['media']
+      data = (data)[0]
+
+
+      # data = json.loads(data)
+      image_url = data['media_url']
+      filename = image_url.split("/")[-1]
+      
+      
+         # Open a local file with wb ( write binary ) permission.
+      r = requests.get(image_url, stream = True)
+      with open("./images/{}".format(filename),'wb') as f:
+         shutil.copyfileobj(r.raw, f)
+   except:
+      pass
+
+   print("Image " + str(count) + " scraped")
+   count+=1
+      # data = json.loads(data)
+      # data = json.loads(data)
+      # data = data[0]     
+      # quit()
+      
+      # data = json.loads(data)
+      # data = data[0]    
+
+
+   
+
 
 
 
