@@ -7,6 +7,7 @@ import requests # to get image from the web
 import shutil # to save it locally
 
 count = 1
+profileCount = 0
 auth = tweepy.OAuth1UserHandler(
    config.api_key, config.api_secret, config.access_token, config.token_secret
 )
@@ -14,11 +15,13 @@ auth = tweepy.OAuth1UserHandler(
 users_to_scrape = []
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
+
 for user in users_to_scrape:
    # status = api.user_timeline(user='USATODAY', count=1)[0]
    # json.dumps(status)
    # with open('data.json', 'w', encoding="utf-8")as f:
    list_of_tweets = []
+   profileCount += 1
 
    api = tweepy.API(auth)
    # enter name of twitter account for id
@@ -83,7 +86,7 @@ for user in users_to_scrape:
       except:
          pass
 
-      print("Image " + str(count) + " scraped")
+      print("Image " + str(count) + " scraped [Profile " + str(profileCount) + " of " + str(len(users_to_scrape)) + "]")
       count+=1
 
       
