@@ -45,7 +45,8 @@ for user in users_to_scrape:
          r = requests.get(image_url, stream = True)
          with open("./images/{}".format(filename),'wb') as f:
             shutil.copyfileobj(r.raw, f)
-      
+         print("Image " + str(count) + " scraped [Profile " + str(profileCount) + " of " + str(len(users_to_scrape)) + "]")
+         count+=1 
 
       except:
          pass
@@ -65,7 +66,8 @@ for user in users_to_scrape:
          r = requests.get(image_url, stream = True)
          with open("./images/{}".format(filename),'wb') as f:
             shutil.copyfileobj(r.raw, f)
-
+         print("Image " + str(count) + " scraped [Profile " + str(profileCount) + " of " + str(len(users_to_scrape)) + "]")
+         count+=1 
 
       except:
          pass
@@ -85,12 +87,12 @@ for user in users_to_scrape:
          r = requests.get(image_url, stream = True)
          with open("./images/{}".format(filename),'wb') as f:
             shutil.copyfileobj(r.raw, f)
-
+         print("Image " + str(count) + " scraped [Profile " + str(profileCount) + " of " + str(len(users_to_scrape)) + "]")
+         count+=1 
 
       except:
          pass
-      print("Image " + str(count) + " scraped [Profile " + str(profileCount) + " of " + str(len(users_to_scrape)) + "]")
-      count+=1 
+
 
 
 
